@@ -1,0 +1,41 @@
+{
+  "name": "@dferber90/zazu",
+  "version": "0.0.1-alpha",
+  "description": "Make everyone a poweruser",
+  "main": "index.js",
+  "repository": "https://github.com/dferber90/zazu",
+  "author": "Dominik Ferber <dominik.ferber+npm@gmail.com> (http://dferber.de/)",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-serve webpack.config.js --content examples/public",
+    "transpile": "babel src -d dist --copy-files",
+    "prepublishOnly": "yarn transpile",
+    "demo:build": "webpack",
+    "demo:deploy": "gh-pages -d examples/dist",
+    "demo:publish": "yarn demo:build && yarn demo:deploy"
+  },
+  "private": false,
+  "devDependencies": {
+    "@babel/cli": "7.0.0",
+    "@babel/core": "7.0.0",
+    "@babel/preset-env": "7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "babel-loader": "8.0.2",
+    "clean-webpack-plugin": "0.1.19",
+    "copy-webpack-plugin": "4.5.2",
+    "css-loader": "1.0.0",
+    "gh-pages": "1.2.0",
+    "html-webpack-plugin": "3.2.0",
+    "react": "16.4.2",
+    "react-dom": "16.4.2",
+    "style-loader": "0.23.0",
+    "webpack": "4.17.2",
+    "webpack-cli": "3.1.0",
+    "webpack-serve": "2.0.2"
+  },
+  "peerDependencies": {
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
+  }
+}
