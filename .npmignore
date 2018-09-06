@@ -1,8 +1,0 @@
-src
-examples
-.babelrc
-.gitignore
-webpack.config.demo.js
-webpack.config.npm.js
-yarn.lock
-yarn-error.log
