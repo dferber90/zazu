@@ -1,5 +1,3 @@
-/*** webpack.config.js ***/
-
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const htmlWebpackPlugin = new HtmlWebpackPlugin({
@@ -9,11 +7,11 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin({
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 
+const DEV = process.env.WEBPACK_SERVE;
+
 module.exports = {
   entry: path.join(__dirname, "examples/src/index.js"),
-  mode: process.env.WEBPACK_SERVE ? "development" : "production",
-  // TODO output currentply builds the demo,
-  // but we ultimately want to build the component with it as well
+  mode: DEV ? "development" : "production",
   output: {
     path: path.join(__dirname, "examples/dist"),
     filename: "bundle.js"
@@ -27,15 +25,24 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            query: {
+              modules: true,
+              localIdentName: DEV
+                ? "[name]__[local]___[hash:base64:5]"
+                : "[hash:base64:5]"
+            }
+          }
+        ]
       }
     ]
   },
   plugins: [
-    // TODO clean either or, depending on what is being built
-    new CleanWebpackPlugin(["dist", "examples/dist"]),
+    new CleanWebpackPlugin(["examples/dist"]),
     htmlWebpackPlugin,
-    // TODO only needed for demo
     new CopyWebpackPlugin([{ from: "examples/public" }])
   ],
   resolve: {

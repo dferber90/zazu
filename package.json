@@ -8,10 +8,11 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-serve webpack.config.js --content examples/public",
-    "transpile": "babel src -d dist --copy-files",
-    "prepublishOnly": "yarn transpile",
-    "demo:build": "webpack",
+    "start": "yarn demo:start",
+    "build": "webpack --config webpack.config.npm.js",
+    "prepublishOnly": "yarn build",
+    "demo:start": "webpack-serve webpack.config.demo.js --content examples/public",
+    "demo:build": "webpack --config webpack.config.demo.js",
     "demo:deploy": "gh-pages -d examples/dist",
     "demo:publish": "yarn demo:build && yarn demo:deploy"
   },
